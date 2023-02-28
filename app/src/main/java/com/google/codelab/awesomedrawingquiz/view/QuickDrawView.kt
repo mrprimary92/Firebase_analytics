@@ -99,7 +99,7 @@ class QuickDrawView @JvmOverloads constructor(
 
     with(canvas) {
       save()
-      matrix = mtrx
+      setMatrix(mtrx)
       drawPath(path, paint)
       restore()
     }

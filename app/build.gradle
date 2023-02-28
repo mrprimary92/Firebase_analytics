@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 // TODO: Apply google-services plugin (101)
-
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -43,10 +43,12 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.work:work-runtime-ktx:2.7.0'
+
     // TODO: Import the Firebase BoM (101)
-
+    implementation platform("com.google.firebase:firebase-bom:$firebaseBomVersion")
     // TODO: Add Firebase Analytics dependency (101)
-
+    implementation 'com.google.firebase:firebase-analytics-ktx'
     // TODO: Add Firebase Remote Config dependency (102)
 
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
