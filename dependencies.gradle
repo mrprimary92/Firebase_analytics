@@ -7,13 +7,13 @@ ext {
     // Plugins
     androidPluginVersion = '4.1.1'
     // TODO: Declare google-services plugin version (101)
-    googleServicesPluginVersion = '4.3.4'
+    googleServicesPluginVersion = '4.3.15'
 
 
     // Library
 
     // TODO: Declare Firebase BOM version (101)
-    firebaseBomVersion = '26.2.0'
+    firebaseBomVersion = '31.2.2'
 
 
     appCompatVersion = '1.2.0'
