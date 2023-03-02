@@ -21,6 +21,8 @@ import android.util.Log
 import com.google.android.gms.ads.MobileAds
 import com.google.codelab.awesomedrawingquiz.ui.game.GameSettings
 import com.google.codelab.awesomedrawingquiz.viewmodel.AwesomeDrawingQuizViewModelFactory
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 class AwesomeDrawingQuiz : Application() {
 
@@ -35,9 +37,11 @@ class AwesomeDrawingQuiz : Application() {
         this,
         provideGameSettings(),
         // TODO: Pass FirebaseAnalytics instance as a parameter (101)
-    )
+        provideFirebaseAnalytics(),
+        )
 
     // TODO: Provide FirebaseAnalytics instance (101)
+    private fun provideFirebaseAnalytics() = Firebase.analytics
 
 
     // TODO: Provide FirebaseRemoteConfig instance (102)
