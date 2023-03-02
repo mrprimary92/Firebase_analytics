@@ -18,9 +18,11 @@ package com.google.codelab.awesomedrawingquiz.ui.game
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.google.codelab.awesomedrawingquiz.*
 import com.google.codelab.awesomedrawingquiz.data.Drawing
 import com.google.codelab.awesomedrawingquiz.data.DrawingDao
 import com.google.codelab.awesomedrawingquiz.ui.game.GameSettings.Companion.MAX_GAME_LEVEL
+import com.google.firebase.analytics.FirebaseAnalytics
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -32,7 +34,9 @@ class GameViewModel(
     private val drawingDao: DrawingDao,
     private val settings: GameSettings,
     // TODO: Accept FirebaseAnalytics instance as a parameter (101)
-) : ViewModel() {
+    private val analytics: FirebaseAnalytics,
+
+    ) : ViewModel() {
 
     private var drawingRequestDisposable: Disposable? = null
 
@@ -81,6 +85,7 @@ class GameViewModel(
         seenWords.clear()
 
         // TODO: Log game_start event (101)
+        analytics.logGameStart()
 
 
         startLevel(1)
@@ -96,7 +101,12 @@ class GameViewModel(
                 (System.currentTimeMillis() - levelStartTimeInMillis).toInt() / 1000
 
             // TODO: Log level_success event (101)
-
+            analytics.logLevelSuccess(
+                levelName = drawing.word,
+                numberOfAttempts = numAttempts,
+                elapsedTimeSec = elapsedTimeInSeconds,
+                hintUsed = isHintUsed,
+            )
 
             gameEvents.onNext(
                 LevelClearEvent(
@@ -106,6 +116,7 @@ class GameViewModel(
             )
         } else {
             // TODO: Log level_wrong_answer event (101)
+            analytics.logLevelWrongAnswer(levelName = drawing.word)
 
 
             gameEvents.onNext(WrongAnswerEvent(drawing))
@@ -117,7 +128,12 @@ class GameViewModel(
             (System.currentTimeMillis() - levelStartTimeInMillis).toInt() / 1000
         
         // TODO: Log level_fail event (101)
-        
+        analytics.logLevelFail(
+            levelName = drawing.word,
+            numberOfAttempts = numAttempts,
+            elapsedTimeSec = elapsedTimeInSeconds,
+            hintUsed = isHintUsed,
+        )
         
         gameEvents.onNext(
             LevelSkipEvent(numAttempts, elapsedTimeInSeconds, isHintUsed, drawing)
@@ -148,11 +164,13 @@ class GameViewModel(
 
     fun logAdRewardPrompt(adUnitId: String) {
         // TODO: Log ad_reward_prompt event (101)
+        analytics.logAdRewardPrompt(adUnitId)
 
     }
 
     fun logAdRewardImpression(adUnitId: String) {
         // TODO: Log ad_reward_impression event (101)
+        analytics.logAdRewardImpression(adUnitId)
 
     }
 
@@ -177,6 +195,7 @@ class GameViewModel(
                 drawing = d
 
                 // TODO: Log level_start event (101)
+                analytics.logLevelStart(d.word)
 
 
                 gameEvents.onNext(NewLevelEvent(currentLevel, clue, d))
@@ -195,6 +214,7 @@ class GameViewModel(
 
     private fun finishGame() {
         // TODO: Log game_complete event (101)
+        analytics.logGameComplete(numCorrectAnswers)
 
 
         gameEvents.onNext(GameOverEvent(numCorrectAnswers))
