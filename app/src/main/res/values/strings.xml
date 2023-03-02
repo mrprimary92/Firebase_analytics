@@ -20,5 +20,9 @@
     <string name="try_again">Try again</string>
     <string name="wrong_answer">Wrong Answer!</string>
 
-    <string name="admob_app_id">ca-app-pub-3940256099942544~4354546703</string>
+<!--    my app id-->
+    <string name="admob_app_id">ca-app-pub-7201201498046452~3487828993</string>
+
+<!--    given app id-->
+<!--    <string name="admob_app_id">ca-app-pub-3940256099942544~4354546703</string>-->
 </resources>

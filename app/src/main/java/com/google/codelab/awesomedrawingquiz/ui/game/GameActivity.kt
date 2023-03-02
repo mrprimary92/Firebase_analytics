@@ -247,6 +247,9 @@ class GameActivity : AppCompatActivity() {
 
         private const val TAG = "GameActivity"
 
-        private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/8673189370"
+        // my unit id
+        private const val AD_UNIT_ID = "ca-app-pub-7201201498046452/9315241877"
+        // given unit id
+//        private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/8673189370"
     }
 }
