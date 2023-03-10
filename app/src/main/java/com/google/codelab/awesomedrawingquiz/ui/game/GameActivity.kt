@@ -244,7 +244,6 @@ class GameActivity : AppCompatActivity() {
     }
 
     companion object {
-
         private const val TAG = "GameActivity"
 
         private const val AD_UNIT_ID = "ca-app-pub-3940256099942544/8673189370"
