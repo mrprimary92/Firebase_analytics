@@ -24,12 +24,15 @@ import com.google.codelab.awesomedrawingquiz.data.DatabaseProvider
 import com.google.codelab.awesomedrawingquiz.ui.game.GameSettings
 import com.google.codelab.awesomedrawingquiz.ui.game.GameViewModel
 import com.google.codelab.awesomedrawingquiz.ui.splash.SplashViewModel
+import com.google.firebase.analytics.FirebaseAnalytics
 
 class AwesomeDrawingQuizViewModelFactory(
     context: Context,
     private val gameSettings: GameSettings,
     // TODO: Accept FirebaseAnalytics instance as a parameter (101)
-) : ViewModelProvider.Factory {
+    private val analytics: FirebaseAnalytics,
+
+    ) : ViewModelProvider.Factory {
 
     private val assetManager = context.assets
 
@@ -41,7 +44,7 @@ class AwesomeDrawingQuizViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
             // TODO: Pass FirebaseAnalytics instance as a parameter (101)
-            return GameViewModel(drawingDao, gameSettings) as T
+            return GameViewModel(drawingDao, gameSettings, analytics) as T
         } else if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
             return SplashViewModel(assetManager, preferences, drawingDao) as T
         }
